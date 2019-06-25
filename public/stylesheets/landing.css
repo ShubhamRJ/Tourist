@@ -1,9 +1,6 @@
 body{
 	background-color: #000;
 }
-nav{
-	visibility: hidden;
-}
 #landing-header{
 	z-index: 1;
 	position: relative;

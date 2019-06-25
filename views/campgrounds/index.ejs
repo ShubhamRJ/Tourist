@@ -1,15 +1,18 @@
 <% include ../header %>
-	<div class="container">
-		<header class="jumbotron">
-			<div class="container">
-				<strong><h1>Welcome to YelpCamp!</h1></strong>
-				<p>View the best campgrounds from all over the world!</p>
-				<p>
-					<a class="btn btn-primary btn-large" href="/campgrounds/new">Add New Campground</a>
-				</p>
-			</div>
-		</header>
-
+	<header>
+	  	<div class="overlay"></div>
+	  	<video id="video" muted="muted" onended="onVideoEnded();">
+	  	</video>
+	  	<div id="video-container" class="container h-100">
+	    	<div class="d-flex h-100 text-center align-items-center">
+	      		<div class="w-100 text-white">
+	        		<h1 class="display-3">YelpCamp</h1>
+	        		<p class="lead mb-0">Scroll Down</p>
+	      		</div>
+	    	</div>
+	    </div>
+	</header>
+	<div id="list" class="container">
 		<div class="row text-center" style="display: flex; flex-wrap: wrap;">
 			<% campgrounds.forEach(function(campground){ %>
 				<div class="col-md-3 col-sm-6">
@@ -26,4 +29,36 @@
 			<% }); %>
 		</div>
 	</div>
+	<script>
+		window.onscroll = function(){scrollFunction()};
+		document.getElementById("navbar").style.opacity = "0";
+		document.getElementById("navbar").style.position = "fixed";
+		function scrollFunction(){
+			if(document.body.scrollTop>10 || document.documentElement.scrollTop>10){
+				document.getElementById("navbar").style.opacity = "1";
+			}else{
+				document.getElementById("navbar").style.opacity = "0";
+			}
+		}
+
+		var video_list=["/assets/island.mp4","/assets/forest.mp4","/assets/ocean.mp4","/assets/road.mp4"];
+		var video_index=0;
+		var video_player=null;
+		function onload(){
+			console.log("Loaded");
+			video_player=document.getElementById("video");
+			video_player.setAttribute("src",video_list[video_index]);
+			video_player.play();
+		}
+
+		function onVideoEnded(){
+			if(video_index<video_list.length-1){
+				video_index++;
+			}else{
+				video_index=0;
+			}
+			video_player.setAttribute("src",video_list[video_index]);
+			video_player.play();
+		}
+	</script>
 <% include ../footer %>

@@ -1,5 +1,6 @@
 var express    = require("express");
 var Campground = require("../models/campgrounds");
+var User 	   = require("../models/user")
 var middleware = require("../middleware/index.js");
 var router     = express.Router();
 
@@ -31,6 +32,15 @@ router.post("/",middleware.isLoggedIn,function(req,res){
 			console.log(err);
 		}
 		else{
+			User.findById(req.user._id,function(err,user){
+				if(err){
+					console.log(err);
+				}
+				else{
+					user.content.push(campground._id);
+					user.save();
+				}
+			})
 			res.redirect("/");
 		}
 	});
@@ -73,7 +83,7 @@ router.put("/:id",middleware.checkCampgroundOwnership,function(req,res){
 
 
 router.delete("/:id",middleware.checkCampgroundOwnership,function(req,res){
-	Campground.findOneAndDelete(req.params.id,function(err){
+	Campground.findByIdAndDelete(req.params.id,function(err){
 		res.redirect("/campgrounds");
 	});
 });

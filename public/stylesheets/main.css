@@ -1,14 +1,13 @@
-#navbar{
-	position: relative;
-	opacity: 1;
-	z-index: 2;
-	background-color: #fff;
-	width: 100%;
-	-webkit-transition: opacity 0.5s ease-in-out;
-    -moz-transition: opacity 0.5s ease-in-out;
-    -o-transition: opacity 0.5s ease-in-out;
-    -ms-transition: opacity 0.5s ease-in-out;
-    transition: opacity 0.5s ease-in-out;
+#search{
+  color: rgb(140,140,140);
+  border: solid;
+  border-color: rgba(83, 193, 244,0.1);*/
+  margin-top: 2px;
+  width: 60vw;
+}
+.thumbnail{
+  box-shadow:1px 1px 5px 5px rgba(100,100,100,0.5);
+  z-index: 1;
 }
 header {
   position: relative;
@@ -69,4 +68,12 @@ header .overlay {
 
 .form{
 	display: inline;
+}
+
+@media only screen and (max-width: 1000px){
+  #search{
+    margin-top: 10px;
+    margin-bottom: 0;
+    width: 95vw;
+  } 
 }

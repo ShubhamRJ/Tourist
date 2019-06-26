@@ -5,7 +5,7 @@ var middleware = require("../middleware/index.js");
 var router     = express.Router();
 
 //campgrounds page route
-router.get("/",function(req,res){
+router.get("/campgrounds",function(req,res){
 	Campground.find({},function(err,allcampgrounds){
 		if(err){
 			console.log(err);
@@ -17,16 +17,16 @@ router.get("/",function(req,res){
 });
 
 //create new campground
-router.post("/",middleware.isLoggedIn,function(req,res){
+router.post("/campgrounds",middleware.isLoggedIn,function(req,res){
 	var name = req.body.name;
-	var price= req.body.price;
 	var image= req.body.image;
 	var description = req.body.description;
+	var country = req.body.country;
 	var author={
 		id: req.user._id,
-		username: req.user.username
+		username: req.user.name
 	};
-	var newCampground = {name:name, price:price, image:image, description:description, author:author};
+	var newCampground = {name:name, image:image, description:description,country:country, author:author};
 	Campground.create(newCampground,function(err,campground){
 		if(err){
 			console.log(err);
@@ -47,31 +47,47 @@ router.post("/",middleware.isLoggedIn,function(req,res){
 });
 
 //new campground form route
-router.get("/new",middleware.isLoggedIn,function(req,res){
+router.get("/campgrounds/new",middleware.isLoggedIn,function(req,res){
     res.render("campgrounds/new.ejs");
 });
 
 //show a campground route
-router.get("/:id",function(req,res){
+router.get("/campgrounds/:id",function(req,res){
 	Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
 		if(err){
-			req.flash("error","Campground not found!");
 			res.redirect("/campgrounds");
 		}
 		else{
-			res.render("campgrounds/show.ejs",{campground: foundCampground});
+			let name=foundCampground.name;
+			name=name.toLowerCase();
+			name=name.replace(/\s/g,'');
+			res.render("campgrounds/show.ejs",{name:name,campground: foundCampground});
 		}
 	});
 });
 
+//list campgrounds by search
+router.post("/campgrounds/list",function(req,res){
+	let search = req.body.search;
+	search=search.charAt(0).toUpperCase()+search.slice(1);
+	Campground.find({"name" :{$regex: '^'+ search}},function(err,foundCampgrounds){
+		if(err){
+			console.log(err);
+		}
+		else{
+			res.render("campgrounds/index.ejs",{campgrounds:foundCampgrounds});
+		}
+	})
+});
+
 //Edit route
-router.get("/:id/edit",middleware.checkCampgroundOwnership,function(req,res){
+router.get("/campgrounds/:id/edit",middleware.checkCampgroundOwnership,function(req,res){
 	Campground.findById(req.params.id,function(err,foundCampground){
 		res.render("campgrounds/edit",{campground:foundCampground});
 	});
 });
 
-router.put("/:id",middleware.checkCampgroundOwnership,function(req,res){
+router.put("/campgrounds/:id",middleware.checkCampgroundOwnership,function(req,res){
 	Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground){
 		if(err){
 			res.redirect("/campgrounds");
@@ -82,10 +98,13 @@ router.put("/:id",middleware.checkCampgroundOwnership,function(req,res){
 });
 
 
-router.delete("/:id",middleware.checkCampgroundOwnership,function(req,res){
+router.delete("/campgrounds/:id",middleware.checkCampgroundOwnership,function(req,res){
 	Campground.findByIdAndDelete(req.params.id,function(err){
 		res.redirect("/campgrounds");
 	});
 });
 
+router.get("*",function(req,res){
+	res.redirect("back");
+});
 module.exports = router;

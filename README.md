@@ -1,5 +1,5 @@
 # Tourist [![Build Status](https://travis-ci.org/ShubhamRJ/YelpCamp.svg?branch=master)](https://travis-ci.org/ShubhamRJ/YelpCamp)
-#### Link: http://safe-eyrie-74782.herokuapp.com/
+#### Link: https://arcane-garden-85016.herokuapp.com
 
 ## Technologies used:
 HTML5, CSS3, JavaScript, Bootstrap3, ExpressJS, MongoDB, NodeJS, PassportJS

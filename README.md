@@ -1,7 +1,5 @@
-# YelpCamp [![Build Status](https://travis-ci.org/ShubhamRJ/YelpCamp.svg?branch=master)](https://travis-ci.org/ShubhamRJ/YelpCamp)
+# Tourist [![Build Status](https://travis-ci.org/ShubhamRJ/YelpCamp.svg?branch=master)](https://travis-ci.org/ShubhamRJ/YelpCamp)
 #### Link: http://safe-eyrie-74782.herokuapp.com/
-
-A complete full stack web application for adding,viewing,editing campgrounds. This project was a part of the Udemy's Web Developer Bootcamp by Colt Steele.
 
 ## Technologies used:
 HTML5, CSS3, JavaScript, Bootstrap3, ExpressJS, MongoDB, NodeJS, PassportJS

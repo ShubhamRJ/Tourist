@@ -1,4 +1,4 @@
-# Tourist [![Build Status](https://travis-ci.org/ShubhamRJ/YelpCamp.svg?branch=master)](https://travis-ci.org/ShubhamRJ/YelpCamp)
+# Tourist [![Build Status](https://travis-ci.org/ShubhamRJ/Tourist.svg?branch=master)](https://travis-ci.org/ShubhamRJ/Tourist)
 #### Link: https://arcane-garden-85016.herokuapp.com
 
 ## Technologies used:
